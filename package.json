@@ -1,0 +1,83 @@
+{
+  "name": "jadwal-sholat-windows",
+  "productName": "Jadwal Sholat",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Aplikasi desktop Windows Jadwal Sholat — data Bimas Islam Kemenag RI",
+  "license": "MIT",
+  "author": { "name": "bantenweb.com", "url": "https://bantenweb.com" },
+  "type": "module",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "test": "node --test \"tests/**/*.test.js\"",
+    "dist": "electron-builder --win nsis",
+    "postdist": "node scripts/checksums.js",
+    "dist:portable": "electron-builder --win portable",
+    "postdist:portable": "node scripts/checksums.js",
+    "checksums": "node scripts/checksums.js"
+  },
+  "devDependencies": {
+    "electron": "45.3.0",
+    "electron-builder": "26.18.0"
+  },
+  "build": {
+    "appId": "id.jadwalsholat.desktop",
+    "productName": "Jadwal Sholat",
+    "copyright": "© bantenweb.com — MIT License",
+    "directories": {
+      "output": "dist",
+      "buildResources": "build"
+    },
+    "files": [
+      "main.js",
+      "preload.cjs",
+      "lib/**",
+      "app/**",
+      "seed/**",
+      "build/icon.png",
+      "package.json"
+    ],
+    "asar": true,
+    "electronFuses": {
+      "runAsNode": false,
+      "enableNodeOptionsEnvironmentVariable": false,
+      "enableNodeCliInspectArguments": false,
+      "enableEmbeddedAsarIntegrityValidation": true,
+      "onlyLoadAppFromAsar": true,
+      "enableCookieEncryption": true,
+      "grantFileProtocolExtraPrivileges": false,
+      "loadBrowserProcessSpecificV8Snapshot": false
+    },
+    "win": {
+      "icon": "build/icon.png",
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "artifactName": "JadwalSholat-Setup-${version}.${ext}"
+    },
+    "portable": {
+      "artifactName": "JadwalSholat-Portable-${version}.${ext}"
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "Jadwal Sholat",
+      "uninstallDisplayName": "Jadwal Sholat",
+      "deleteAppDataOnUninstall": false
+    },
+    "electronLanguages": [
+      "id",
+      "en-US"
+    ],
+    "compression": "maximum"
+  }
+}
